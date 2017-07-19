@@ -8,7 +8,7 @@ class JsonParser:
 
     #######################################################
     # loads(self, s)
-    # json字符串转对象
+    # json字符串转对象，存储在_data中
     #######################################################
     def loads(self, s):
         #如果s是None或是空串""
@@ -167,9 +167,51 @@ class JsonParser:
             return False
 
 
-
-    def dumps(self):
-        pass
+    #######################################################
+    # dumps(self, obj)
+    # 对象转Json字符串，返回Json字符串
+    #######################################################
+    def dumps(self, obj):
+        #若对象是[]或者是()
+        if isinstance(obj, list) or isinstance(obj, tuple):
+            index = 0
+            length = len(obj)
+            tmpstr = ""
+            while True:
+                if index >= length :
+                    break
+                if index != 0 :
+                    tmpstr += ","
+                tmpstr += self.dumps(obj[index])
+                index += 1
+            tmpstr = "["+tmpstr+"]"
+            return tmpstr
+        #若对象是None
+        elif obj is None :
+            return "null"
+        #若对象是bool
+        elif isinstance(obj, bool) :
+            if obj :
+                return "true"
+            else :
+                return "false"
+        #若对象是int或float
+        elif isinstance(obj, int) or isinstance(obj, float) :
+            return str(obj)
+        #若对象是str
+        elif isinstance(obj, str) :
+            return "\"" + obj + "\""
+        #若对象是{key : value, key : value}
+        elif isinstance(obj, dict) :
+            tmpstr = ""
+            count = 0
+            for key, value in obj.items() :
+                tmpstr += self.dumps(key) + ":" + self.dumps(value)
+                count += 1
+                if count < len(obj) :
+                    tmpstr += ","
+            tmpstr = "{" + tmpstr + "}"
+            return tmpstr
 
     def load_file(self, f):
         pass
@@ -183,5 +225,3 @@ class JsonParser:
     def dump_dict(self):
         pass
 
-jp = JsonParser()
-jp.loads('["foo", {"bar":["ba z", null,"abc",[true, 333], 1.0, 2], "se" : "ttt"}]')
