@@ -252,13 +252,55 @@ class JsonParser:
     #######################################################
     def dump_file(self,f):
         file = open(f, 'w')
-        logging.warning(self.dumps(self._data))
+        #logging.warning(self.dumps(self._data))
         file.write(self.dumps(self._data))
         file.close()
 
+
+    #######################################################
+    # load_dict(self, d)
+    # 将字典d深拷贝到_data
+    #######################################################
     def load_dict(self, d):
-        pass
+        if isinstance(d, dict) :
+            self._data = {}
+        else :
+            return
 
+        for key, value in d.items() :
+            if isinstance(key, str):
+                self._data[key] = self.deep_copy(value)
+
+        #显示刚存入_data的字典
+        print(self._data)
+
+    def deep_copy(self, value):
+        if isinstance(value, list):
+            obj = []
+            for tmp in value :
+                obj.append(self.deep_copy(value))
+        elif isinstance(value, dict):
+            obj = {}
+            for k, v in value.items() :
+                if isinstance(k, str) :
+                    obj[k] = self.deep_copy(v)
+        else :
+            obj = value
+
+        return obj
+
+
+    #######################################################
+    # dump_dict(self)
+    # 将_data的深拷贝返回
+    #######################################################
     def dump_dict(self):
-        pass
 
+        if isinstance(self._data, dict) :
+            d = {}
+        else :
+            return None
+        for key, value in self._data.items() :
+            if isinstance(key, str):
+                d[key] = self.deep_copy(value)
+        return d
