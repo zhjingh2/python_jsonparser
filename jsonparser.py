@@ -11,6 +11,7 @@ class JsonParser:
     # json字符串转对象，存储在_data中
     #######################################################
     def loads(self, s):
+
         #如果s是None或是空串""
         if s == None or len(s) == 0 :
             self._data = None
@@ -136,7 +137,7 @@ class JsonParser:
     def change_form(self, tmp_content) :
         if isinstance(tmp_content, str) :
             if len(tmp_content) >= 2 and tmp_content.startswith("\"") and tmp_content.endswith("\""):
-                return tmp_content[1:-1]
+                return tmp_content[1:-1].decode('utf-8')
             elif tmp_content == "true" :
                 return True
             elif tmp_content == "false" :
@@ -182,7 +183,7 @@ class JsonParser:
                     break
                 if index != 0 :
                     tmpstr += ","
-                tmpstr += self.dumps(obj[index])
+                tmpstr += str(self.dumps(obj[index]))
                 index += 1
             tmpstr = "["+tmpstr+"]"
             return tmpstr
@@ -200,13 +201,18 @@ class JsonParser:
             return str(obj)
         #若对象是str
         elif isinstance(obj, str) :
+            #logging.warning(obj)
+            #转义字符处理
+            obj = obj.replace("\"", "\\\"")
+            obj = obj.replace("\'", "\\\'")
+
             return "\"" + obj + "\""
         #若对象是{key : value, key : value}
         elif isinstance(obj, dict) :
             tmpstr = ""
             count = 0
             for key, value in obj.items() :
-                tmpstr += self.dumps(key) + ":" + self.dumps(value)
+                tmpstr += str(self.dumps(key)) + ":" + str(self.dumps(value))
                 count += 1
                 if count < len(obj) :
                     tmpstr += ","
