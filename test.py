@@ -19,12 +19,15 @@ jp.load_dict({"a":1,"b":2,3:3,"d":{"a":1,"b":2, 3: 33,"bb":"dd"}})
 print(jp.dump_dict())
 
 jp.load_list(["abc","bc",123,22.33,True,{"dd":33,"baba":None}])
+
 print(jp.dump_list())
+
+jp.load_dict({"a":1,"b":2,3:3,"d":{"a":1,"b":2, 3: 33,"bb":"dd"}})
+jp.update({"add1":"add1","add2":2323,"add3":{"ab":32,"dse":33}})
 
 s1 = "[abc呵呵".decode('utf-8')
 s2 = "[abc"
 print(s1[4] == u"呵")
-print(type(s1))
 
 my_dict = {
     "number": 163,

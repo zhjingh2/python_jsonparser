@@ -336,3 +336,18 @@ class JsonParser:
         for value in self._data :
             l.append(self.deep_copy(value))
         return l
+
+
+    #######################################################
+    # update(self, d)
+    # 将字典d更新到实例数据_data中
+    #######################################################
+    def update(self, d):
+        if isinstance(d, dict) and isinstance(self._data, dict):
+            for key, value in d.items() :
+                if isinstance(key, str):
+                    self._data[key] = self.deep_copy(value)
+        else :
+            print("_data原格式不是字典")
+
+        print(self._data)
