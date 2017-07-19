@@ -18,8 +18,8 @@
       <file leaf-file-name="jsonparser.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/jsonparser.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2601">
-              <caret line="216" column="4" lean-forward="true" selection-start-line="216" selection-start-column="4" selection-end-line="216" selection-end-column="4" />
+            <state relative-caret-position="40">
+              <caret line="115" column="0" lean-forward="true" selection-start-line="115" selection-start-column="0" selection-end-line="115" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -28,9 +28,11 @@
       <file leaf-file-name="test.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/test.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="15">
-              <caret line="1" column="8" lean-forward="true" selection-start-line="1" selection-start-column="8" selection-end-line="1" selection-end-column="8" />
-              <folding />
+            <state relative-caret-position="-368">
+              <caret line="10" column="6" lean-forward="false" selection-start-line="10" selection-start-column="6" selection-end-line="10" selection-end-column="6" />
+              <folding>
+                <element signature="e#24#57#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -123,6 +125,7 @@
       <find>logging</find>
       <find>str</find>
       <find>str(</find>
+      <find>格式</find>
     </findStrings>
   </component>
   <component name="IdeDocumentHistory">
@@ -135,9 +138,9 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="60" />
+    <option name="x" value="869" />
     <option name="y" value="23" />
-    <option name="width" value="1801" />
+    <option name="width" value="992" />
     <option name="height" value="977" />
   </component>
   <component name="ProjectView">
@@ -256,29 +259,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="SearchEverywhereHistoryKey" value="JSon&#9;null&#9;null" />
   </component>
-  <component name="RunManager" selected="Python tests.Unittests in test">
-    <configuration default="false" name="Unittest TestJsonParser.testdump_list" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="JsonParser" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test.py" />
-      <option name="CLASS_NAME" value="TestJsonParser" />
-      <option name="METHOD_NAME" value="testdump_list" />
-      <option name="FOLDER_NAME" value="" />
-      <option name="TEST_TYPE" value="TEST_METHOD" />
-      <option name="PATTERN" value="" />
-      <option name="USE_PATTERN" value="false" />
-      <option name="PUREUNITTEST" value="true" />
-      <option name="PARAMS" value="" />
-      <option name="USE_PARAM" value="false" />
-      <method />
-    </configuration>
+  <component name="RunManager" selected="Python tests.Unittests in TestJsonParser">
     <configuration default="false" name="jsonparser" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -355,6 +336,28 @@
       <option name="METHOD_NAME" value="" />
       <option name="FOLDER_NAME" value="" />
       <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <option name="PUREUNITTEST" value="true" />
+      <option name="PARAMS" value="" />
+      <option name="USE_PARAM" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="Unittests in TestJsonParser" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="JsonParser" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test.py" />
+      <option name="CLASS_NAME" value="TestJsonParser" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_CLASS" />
       <option name="PATTERN" value="" />
       <option name="USE_PATTERN" value="false" />
       <option name="PUREUNITTEST" value="true" />
@@ -510,19 +513,19 @@
       <method />
     </configuration>
     <list size="5">
-      <item index="0" class="java.lang.String" itemvalue="Python tests.Unittest TestJsonParser.testdump_list" />
-      <item index="1" class="java.lang.String" itemvalue="Python.jsonparser" />
-      <item index="2" class="java.lang.String" itemvalue="Python tests.Unittest TestJsonParser.testload_file" />
-      <item index="3" class="java.lang.String" itemvalue="Python tests.Unittest TestJsonParser.testdumps" />
-      <item index="4" class="java.lang.String" itemvalue="Python tests.Unittests in test" />
+      <item index="0" class="java.lang.String" itemvalue="Python.jsonparser" />
+      <item index="1" class="java.lang.String" itemvalue="Python tests.Unittest TestJsonParser.testload_file" />
+      <item index="2" class="java.lang.String" itemvalue="Python tests.Unittest TestJsonParser.testdumps" />
+      <item index="3" class="java.lang.String" itemvalue="Python tests.Unittests in test" />
+      <item index="4" class="java.lang.String" itemvalue="Python tests.Unittests in TestJsonParser" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python tests.Unittests in test" />
-        <item index="1" class="java.lang.String" itemvalue="Python tests.Unittest TestJsonParser.testdumps" />
-        <item index="2" class="java.lang.String" itemvalue="Python tests.Unittest TestJsonParser.testload_file" />
-        <item index="3" class="java.lang.String" itemvalue="Python.jsonparser" />
-        <item index="4" class="java.lang.String" itemvalue="Python tests.Unittest TestJsonParser.testdump_list" />
+        <item index="0" class="java.lang.String" itemvalue="Python tests.Unittests in TestJsonParser" />
+        <item index="1" class="java.lang.String" itemvalue="Python.jsonparser" />
+        <item index="2" class="java.lang.String" itemvalue="Python tests.Unittests in test" />
+        <item index="3" class="java.lang.String" itemvalue="Python tests.Unittest TestJsonParser.testdumps" />
+        <item index="4" class="java.lang.String" itemvalue="Python tests.Unittest TestJsonParser.testload_file" />
       </list>
     </recent_temporary>
   </component>
@@ -551,24 +554,24 @@
     <history-entry file="Unittest_TestJsonParser_testload_file - 2017.07.19 at 21h 09m 04s.xml">
       <configuration name="Unittest TestJsonParser.testload_file" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittest_TestJsonParser_testload_list - 2017.07.19 at 20h 36m 43s.xml">
-      <configuration name="Unittest TestJsonParser.testload_list" configurationId="tests" />
-    </history-entry>
-    <history-entry file="Unittest_TestJsonParser_testload_list - 2017.07.19 at 20h 37m 10s.xml">
-      <configuration name="Unittest TestJsonParser.testload_list" configurationId="tests" />
-    </history-entry>
     <history-entry file="Unittest_TestJsonParser_testload_list - 2017.07.19 at 20h 37m 36s.xml">
       <configuration name="Unittest TestJsonParser.testload_list" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Unittests_in_TestJsonParser - 2017.07.19 at 21h 20m 31s.xml">
+      <configuration name="Unittests in TestJsonParser" configurationId="tests" />
     </history-entry>
     <history-entry file="Unittests_in_test - 2017.07.19 at 21h 09m 13s.xml">
       <configuration name="Unittests in test" configurationId="tests" />
     </history-entry>
+    <history-entry file="Unittests_in_test - 2017.07.19 at 21h 20m 19s.xml">
+      <configuration name="Unittests in test" configurationId="tests" />
+    </history-entry>
   </component>
   <component name="ToolWindowManager">
-    <frame x="60" y="23" width="1801" height="977" extended-state="0" />
+    <frame x="869" y="23" width="992" height="977" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25449437" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.46652934" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3298969" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -802,17 +805,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/jsonparser.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2601">
-          <caret line="216" column="4" lean-forward="true" selection-start-line="216" selection-start-column="4" selection-end-line="216" selection-end-column="4" />
+        <state relative-caret-position="40">
+          <caret line="115" column="0" lean-forward="true" selection-start-line="115" selection-start-column="0" selection-end-line="115" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/test.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" column="8" lean-forward="true" selection-start-line="1" selection-start-column="8" selection-end-line="1" selection-end-column="8" />
-          <folding />
+        <state relative-caret-position="-368">
+          <caret line="10" column="6" lean-forward="false" selection-start-line="10" selection-start-column="6" selection-end-line="10" selection-end-column="6" />
+          <folding>
+            <element signature="e#24#57#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

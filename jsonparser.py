@@ -23,103 +23,106 @@ class JsonParser:
         stack = []
         stack_tmp = []
 
-        while len(s) > 0:
-            if s[0] == "[":
-                stack.append("[")
-                if isinstance(s, unicode):
-                    s = s[1:].strip()     #更新s并去除空格
+        try:
+            while len(s) > 0:
+                if s[0] == "[":
+                    stack.append("[")
+                    if isinstance(s, unicode):
+                        s = s[1:].strip()     #更新s并去除空格
 
-            elif s[0] == "]":
-                #出栈到[，处理生成obj，将obj入栈
-                if isinstance(s, unicode):
-                    s = s[1:].strip()     #去除空格
-                tmp = stack.pop()
-                #logging.warning(stack)
-                while tmp != "[":
-                    stack_tmp.insert(0, tmp)
+                elif s[0] == "]":
+                    #出栈到[，处理生成obj，将obj入栈
+                    if isinstance(s, unicode):
+                        s = s[1:].strip()     #去除空格
                     tmp = stack.pop()
+                    #logging.warning(stack)
+                    while tmp != "[":
+                        stack_tmp.insert(0, tmp)
+                        tmp = stack.pop()
 
-                newest_obj = []
-                #logging.warning(stack_tmp)
-                if len(stack_tmp) % 2 != 1: #必须是XXX，XXX，XXX的样式
-                    raise Exception #抛格式异常
-                idx = 0
-                while idx < len(stack_tmp):
-                    if idx % 2 == 0:
-                        newest_obj.append(stack_tmp[idx])
-                    else :
-                        if not self.check_comma(stack_tmp[idx]):
-                            raise Exception #抛格式异常
-                    idx += 1
-                stack.append(newest_obj)
-                while len(stack_tmp) > 0:
-                    stack_tmp.pop()
+                    newest_obj = []
+                    #logging.warning(stack_tmp)
+                    if len(stack_tmp) % 2 != 1: #必须是XXX，XXX，XXX的样式
+                        raise MyException #抛格式异常
+                    idx = 0
+                    while idx < len(stack_tmp):
+                        if idx % 2 == 0:
+                            newest_obj.append(stack_tmp[idx])
+                        else :
+                            if not self.check_comma(stack_tmp[idx]):
+                                raise MyException #抛格式异常
+                        idx += 1
+                    stack.append(newest_obj)
+                    while len(stack_tmp) > 0:
+                        stack_tmp.pop()
 
-            elif s[0] == "{":
-                stack.append("{")
-                if isinstance(s, unicode):
-                    s = s[1:].strip()    #更新s并去除空格
+                elif s[0] == "{":
+                    stack.append("{")
+                    if isinstance(s, unicode):
+                        s = s[1:].strip()    #更新s并去除空格
 
-            elif s[0] == "}":
-                #出栈到{，处理生成obj，将obj入栈
-                if isinstance(s, unicode):
-                    s = s[1:].strip()    #更新s并去除空格
-                tmp = stack.pop()
-                while tmp != "{":
-                    stack_tmp.insert(0, tmp)
+                elif s[0] == "}":
+                    #出栈到{，处理生成obj，将obj入栈
+                    if isinstance(s, unicode):
+                        s = s[1:].strip()    #更新s并去除空格
                     tmp = stack.pop()
+                    while tmp != "{":
+                        stack_tmp.insert(0, tmp)
+                        tmp = stack.pop()
 
-                #logging.warning(stack_tmp)
-                newest_obj = {}
-                if len(stack_tmp) % 4 != 3: #必须是key:value,key:value的样式
-                    raise Exception #抛格式异常
-                idx = 0
-                while idx < len(stack_tmp):
-                    if idx % 4 == 0:
-                        newest_obj[stack_tmp[idx]] = stack_tmp[idx + 2]
-                    elif idx % 4 == 1:
-                        if not self.check_colon(stack_tmp[idx]):
-                            raise Exception #抛格式异常
-                    elif idx % 4 == 3:
-                        if not self.check_comma(stack_tmp[idx]):
-                            raise Exception #抛格式异常
-                    idx += 1
-                stack.append(newest_obj)
-                while len(stack_tmp) > 0:
-                    stack_tmp.pop()
+                    #logging.warning(stack_tmp)
+                    newest_obj = {}
+                    if len(stack_tmp) % 4 != 3: #必须是key:value,key:value的样式
+                        raise MyException #抛格式异常
+                    idx = 0
+                    while idx < len(stack_tmp):
+                        if idx % 4 == 0:
+                            newest_obj[stack_tmp[idx]] = stack_tmp[idx + 2]
+                        elif idx % 4 == 1:
+                            if not self.check_colon(stack_tmp[idx]):
+                                raise Exception #抛格式异常
+                        elif idx % 4 == 3:
+                            if not self.check_comma(stack_tmp[idx]):
+                                raise Exception #抛格式异常
+                        idx += 1
+                    stack.append(newest_obj)
+                    while len(stack_tmp) > 0:
+                        stack_tmp.pop()
 
-            elif s[0] == ",":
-                stack.append(",")
-                if isinstance(s, unicode):
-                    s = s[1:].strip()    #更新s并去除空格
+                elif s[0] == ",":
+                    stack.append(",")
+                    if isinstance(s, unicode):
+                        s = s[1:].strip()    #更新s并去除空格
 
-            elif s[0] == ":":
-                stack.append(":")
-                if isinstance(s, unicode):
-                    s = s[1:].strip()    #更新s并去除空格
+                elif s[0] == ":":
+                    stack.append(":")
+                    if isinstance(s, unicode):
+                        s = s[1:].strip()    #更新s并去除空格
 
-            else:
-                tmp_end_index = self.find_end_index(s)
-                tmp_content = s[:tmp_end_index]
-                if isinstance(tmp_content, unicode):
-                    tmp_content = tmp_content.strip()
-                    #转义字符处理
-                    tmp_content = tmp_content.replace("\\\"", "\"")
-                    tmp_content = tmp_content.replace("\\\'", "\'")
+                else:
+                    tmp_end_index = self.find_end_index(s)
+                    tmp_content = s[:tmp_end_index]
+                    if isinstance(tmp_content, unicode):
+                        tmp_content = tmp_content.strip()
+                        #转义字符处理
+                        tmp_content = tmp_content.replace("\\\"", "\"")
+                        tmp_content = tmp_content.replace("\\\'", "\'")
 
-                if isinstance(s, unicode):
-                    s = s[tmp_end_index:].strip()    #更新s并去除空格
+                    if isinstance(s, unicode):
+                        s = s[tmp_end_index:].strip()    #更新s并去除空格
 
-                stack.append(self.change_form(tmp_content))
+                    stack.append(self.change_form(tmp_content))
+                    #logging.warning(stack)
+
+            if len(stack) != 1: #如果最后stack中不是只有obj自己，那么说明格式错误
                 #logging.warning(stack)
-
-        if len(stack) != 1: #如果最后stack中不是只有obj自己，那么说明格式错误
-            #logging.warning(stack)
-            raise Exception #抛格式异常
-        self._data = stack[0]
-        #打印转化后的_data对象
-        #print("loads转化后的_data对象：" + unicode(self._data))
-        print self._data
+                raise MyException #抛格式异常
+            self._data = stack[0]
+            #打印转化后的_data对象
+            #print("loads转化后的_data对象：" + unicode(self._data))
+            print self._data
+        except MyException:
+            print("格式错误")
 
     """
     内部方法：find_end_index(self, s)
@@ -169,22 +172,23 @@ class JsonParser:
     """
     def change_form(self, tmp_content):
         if isinstance(tmp_content, unicode):
-            if len(tmp_content) >= 2 and tmp_content.startswith("\"") and tmp_content.endswith("\""):
-                return tmp_content[1:-1]
-            elif tmp_content == "true":
-                return True
-            elif tmp_content == "false":
-                return False
-            elif tmp_content == "null":
-                return None
-            elif self.is_int(tmp_content):
-                return int(tmp_content)
-            elif self.is_float(tmp_content):
-                return float(tmp_content)
-            else:
-                #抛出格式异常
-                #logging.warning(tmp_content)
-                return None
+            try:
+                if len(tmp_content) >= 2 and tmp_content.startswith("\"") and tmp_content.endswith("\""):
+                    return tmp_content[1:-1]
+                elif tmp_content == "true":
+                    return True
+                elif tmp_content == "false":
+                    return False
+                elif tmp_content == "null":
+                    return None
+                elif self.is_int(tmp_content):
+                    return int(tmp_content)
+                elif self.is_float(tmp_content):
+                    return float(tmp_content)
+                else:
+                    raise MyException
+            except MyException:
+                print("格式错误")
 
     """
     内部方法：is_float(self, tmp_content)
@@ -361,7 +365,7 @@ class JsonParser:
                 if isinstance(key, str):
                     self._data[key] = self.deep_copy(value)
         else:
-            print("_data原格式不是字典")
+            print("_data原格式不是字典，无法更新")
 
         print(self._data)
 
@@ -422,3 +426,8 @@ class JsonParser:
             obj = value
 
         return obj
+
+
+class MyException(Exception):
+    def __init__(self):
+        Exception.__init__(self)
