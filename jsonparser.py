@@ -292,7 +292,7 @@ class JsonParser:
 
     #######################################################
     # dump_dict(self)
-    # 将_data的深拷贝返回
+    # 将_data的深拷贝{}字典返回
     #######################################################
     def dump_dict(self):
 
@@ -304,3 +304,35 @@ class JsonParser:
             if isinstance(key, str):
                 d[key] = self.deep_copy(value)
         return d
+
+
+    #######################################################
+    # load_list(self, l)
+    # 将列表l深拷贝到_data
+    #######################################################
+    def load_list(self, l):
+        if isinstance(l, list) :
+            self._data = []
+        else :
+            return
+
+        for value in l :
+            self._data.append(self.deep_copy(value))
+
+        #显示刚存入_data的字典
+        print(self._data)
+
+
+    #######################################################
+    # dump_list(self)
+    # 将_data的深拷贝[]列表返回
+    #######################################################
+    def dump_list(self):
+
+        if isinstance(self._data, list) :
+            l = []
+        else :
+            return None
+        for value in self._data :
+            l.append(self.deep_copy(value))
+        return l

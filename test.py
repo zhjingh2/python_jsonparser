@@ -18,6 +18,8 @@ jp.load_dict({"a":1,"b":2,3:3,"d":{"a":1,"b":2, 3: 33,"bb":"dd"}})
 
 print(jp.dump_dict())
 
+jp.load_list(["abc","bc",123,22.33,True,{"dd":33,"baba":None}])
+print(jp.dump_list())
 
 s1 = "[abc呵呵".decode('utf-8')
 s2 = "[abc"
