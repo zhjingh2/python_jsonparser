@@ -18,18 +18,21 @@ class JsonParser:
         if s == None or len(s) == 0 :
             self._data = None
 
+        if isinstance(s, str) :
+            s = str(s).decode('utf-8')
+
         stack = []
         stack_tmp = []
 
         while len(s) > 0 :
             if s[0] == "[" :
                 stack.append("[")
-                if isinstance(s, str) :
+                if isinstance(s, unicode) :
                     s = s[1:].strip()     #更新s并去除空格
 
             elif s[0] == "]" :
                 #出栈到[，处理生成obj，将obj入栈
-                if isinstance(s, str) :
+                if isinstance(s, unicode) :
                     s = s[1:].strip()     #去除空格
                 tmp = stack.pop()
                 #logging.warning(stack)
@@ -56,12 +59,12 @@ class JsonParser:
 
             elif s[0] == "{" :
                 stack.append("{")
-                if isinstance(s, str) :
+                if isinstance(s, unicode) :
                     s = s[1:].strip()    #更新s并去除空格
 
             elif s[0] == "}" :
                 #出栈到{，处理生成obj，将obj入栈
-                if isinstance(s, str) :
+                if isinstance(s, unicode) :
                     s = s[1:].strip()    #更新s并去除空格
                 tmp = stack.pop()
                 while tmp != "{" :
@@ -89,24 +92,24 @@ class JsonParser:
 
             elif s[0] == "," :
                 stack.append(",")
-                if isinstance(s, str) :
+                if isinstance(s, unicode) :
                     s = s[1:].strip()    #更新s并去除空格
 
             elif s[0] == ":" :
                 stack.append(":")
-                if isinstance(s, str) :
+                if isinstance(s, unicode) :
                     s = s[1:].strip()    #更新s并去除空格
 
             else :
                 tmp_end_index = self.find_end_index(s)
                 tmp_content = s[:tmp_end_index]
-                if isinstance(tmp_content, str) :
+                if isinstance(tmp_content, unicode) :
                     tmp_content = tmp_content.strip()
                     #转义字符处理
                     tmp_content = tmp_content.replace("\\\"", "\"")
                     tmp_content = tmp_content.replace("\\\'", "\'")
 
-                if isinstance(s, str) :
+                if isinstance(s, unicode) :
                     s = s[tmp_end_index:].strip()    #更新s并去除空格
 
                 stack.append(self.change_form(tmp_content))
@@ -117,7 +120,8 @@ class JsonParser:
             raise Exception #抛格式异常
         self._data = stack[0]
         #打印转化后的_data对象
-        #print("loads转化后的_data对象：" + str(self._data))
+        #print("loads转化后的_data对象：" + unicode(self._data))
+        print self._data
 
     def find_end_index(self, s) :
         index = 0
@@ -142,7 +146,7 @@ class JsonParser:
             return False
 
     def change_form(self, tmp_content) :
-        if isinstance(tmp_content, str) :
+        if isinstance(tmp_content, unicode) :
             if len(tmp_content) >= 2 and tmp_content.startswith("\"") and tmp_content.endswith("\""):
                 return tmp_content[1:-1]
             elif tmp_content == "true" :
@@ -190,36 +194,49 @@ class JsonParser:
                     break
                 if index != 0 :
                     tmpstr += ","
-                tmpstr += str(self.dumps(obj[index]))
+                tmpstr += unicode(self.dumps(obj[index]))
                 index += 1
             tmpstr = "["+tmpstr+"]"
             return tmpstr
+
         #若对象是None
         elif obj is None :
             return "null"
+
         #若对象是bool
         elif isinstance(obj, bool) :
             if obj :
                 return "true"
             else :
                 return "false"
+
         #若对象是int或float
         elif isinstance(obj, int) or isinstance(obj, float) :
-            return str(obj)
+            return unicode(obj)
+
         #若对象是str
         elif isinstance(obj, str) :
-            #logging.warning(obj)
+            obj = obj.decode('utf-8')
             #转义字符处理
             obj = obj.replace("\"", "\\\"")
             obj = obj.replace("\'", "\\\'")
 
             return "\"" + obj + "\""
+
+        #若对象是unicode
+        elif isinstance(obj, unicode) :
+            #转义字符处理
+            obj = obj.replace("\"", "\\\"")
+            obj = obj.replace("\'", "\\\'")
+
+            return "\"" + obj + "\""
+
         #若对象是{key : value, key : value}
         elif isinstance(obj, dict) :
             tmpstr = ""
             count = 0
             for key, value in obj.items() :
-                tmpstr += str(self.dumps(key)) + ":" + str(self.dumps(value))
+                tmpstr += unicode(self.dumps(key)) + ":" + unicode(self.dumps(value))
                 count += 1
                 if count < len(obj) :
                     tmpstr += ","
@@ -253,7 +270,7 @@ class JsonParser:
     def dump_file(self,f):
         file = open(f, 'w')
         #logging.warning(self.dumps(self._data))
-        file.write(self.dumps(self._data))
+        file.write(self.dumps(self._data).encode('utf-8'))
         file.close()
 
 
@@ -305,6 +322,20 @@ class JsonParser:
                 d[key] = self.deep_copy(value)
         return d
 
+    #######################################################
+    # update(self, d)
+    # 将字典d更新到实例数据_data中
+    #######################################################
+    def update(self, d):
+        if isinstance(d, dict) and isinstance(self._data, dict):
+            for key, value in d.items() :
+                if isinstance(key, str):
+                    self._data[key] = self.deep_copy(value)
+        else :
+            print("_data原格式不是字典")
+
+        print(self._data)
+
 
     #######################################################
     # load_list(self, l)
@@ -338,16 +369,3 @@ class JsonParser:
         return l
 
 
-    #######################################################
-    # update(self, d)
-    # 将字典d更新到实例数据_data中
-    #######################################################
-    def update(self, d):
-        if isinstance(d, dict) and isinstance(self._data, dict):
-            for key, value in d.items() :
-                if isinstance(key, str):
-                    self._data[key] = self.deep_copy(value)
-        else :
-            print("_data原格式不是字典")
-
-        print(self._data)

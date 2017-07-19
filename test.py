@@ -1,61 +1,70 @@
 # -*- coding: utf-8 -*-
 from jsonparser import JsonParser
+import unittest
 
-jp = JsonParser()
+class TestJsonParser(unittest.TestCase):
+    #初始化工作
+    def setUp(self):
+        self.jp = JsonParser()
 
-jp.loads('["foo", {"bar":["ba z","呵呵", null,"ab\"c",[true, 333], 1.0, 2], "se" : "ttt"}]')
+    #退出清理工作
+    def tearDown(self):
+        pass
 
-print(jp.dumps(['foo',{'bar':('baz',"张竞豪", None, 1.0, 2), "c\"c": 123}]))
+    #测试loads函数
+    def testloads1(self):
+        self.jp.loads('["foo", {"bar":["ba z","呵呵", null,"ab\"c",[true, 333], 1.0, 2], "se" : "ttt"}]')
 
-ob2 = ['foo','abc',{"a":"c","d":"e","cc":['baz',False,1]}, None,("a","b")]
-print(jp.dumps(ob2))
+    def testloads2(self):
+        self.jp.loads('{"abb":664,788:{"btt":["ba22z","王者荣耀", null,"ss\"b\"c",[true, 666], 1.232340, 2234], "b" : false}}')
 
-jp.dump_file("./abcc.txt")
+    #测试dumps函数
+    def testdumps(self):
+        self.assertEqual(self.jp.dumps(["foo",{u"bar":("baz",u"张竞豪", None, 1.0, 2), "c\"c": 123}]),
+                         u'["foo",{"c\\\"c":123,"bar":["baz","张竞豪",null,1.0,2]}]')
 
-jp.load_file("./abcc.txt")
+    #测试load_dump函数
+    def testdump_file(self):
+        self.testloads1()
+        self.jp.dump_file("./abc.txt")
 
-jp.load_dict({"a":1,"b":2,3:3,"d":{"a":1,"b":2, 3: 33,"bb":"dd"}})
+    #测试load_file函数
+    def testload_file(self):
+        self.jp.load_file("./abc.txt")
 
-print(jp.dump_dict())
+    #测试load_dict函数
+    def testload_dict(self):
+        self.jp.load_dict({"a":1,"b":2,3:3,"d":{"a":1,"b":2, 3: 33,"bb":"dd"}})
 
-jp.load_list(["abc","bc",123,22.33,True,{"dd":33,"baba":None}])
+    #测试dump_dict函数
+    def testdump_dict(self):
+        self.testload_dict()
+        self.assertEqual(self.jp.dump_dict(),
+                         {'a': 1, 'b': 2, 'd': {'a': 1, 'b': 2, 'bb': 'dd'}})
 
-print(jp.dump_list())
+    #测试update函数
+    def testupdate(self):
+        self.testload_dict()
+        self.jp.update({"cccc":12312312,"tt":"bbbcswdf","a":1111})
 
-jp.load_dict({"a":1,"b":2,3:3,"d":{"a":1,"b":2, 3: 33,"bb":"dd"}})
-jp.update({"add1":"add1","add2":2323,"add3":{"ab":32,"dse":33}})
+    #测试load_list函数
+    def testload_list(self):
+        self.jp.load_list(["foo", 123, None, {"abc": 123, "tt" : 23}])
 
-s1 = "[abc呵呵".decode('utf-8')
-s2 = "[abc"
-print(s1[4] == u"呵")
+    #测试dump_list函数
+    def testdump_list(self):
+        self.testload_list()
+        self.assertEqual(self.jp.dump_list(),
+                         ['foo', 123, None, {'tt': 23, 'abc': 123}])
 
-my_dict = {
-    "number": 163,
-    "float": 1.63,
-    "null": None,
-    "true": True,
-    "false": False,
-    "array": [1, 6, 3],
-    "empty array": [],
-    "empty object": {},
-    "object": {
-        "space": " ",
-        "backslash": "\\",
-        "controls": "\b\f\n\r\t"
-    },
-    "one item array": ["a"],
-    "one item object": {
-        "key": "value"
-    },
-    "Chinese": "网易CC"
-}
-my_dict2 = {"Self":None,"UID":"6f50b429-5c13-4875-a29a-e4bd8d7b2772",\
-            "Name":"blqw","Birthday":"1986-10-29 18:00:00","Sex":"Male","IsDeleted":False,\
-            "LoginHistory":["2013-08-22 08:00:00","2013-08-22 10:10:10",\
-                            "2013-08-22 12:33:56","2013-08-22 17:25:18","2013-08-22 23:06:59"],\
-            "Info":{"Address":"广东省广州市","Phone":{"手机":"18688888888","电话":"82580000","短号":"10086","QQ":"21979018"},"ZipCode":510000},"Double":-333}
-print(jp.dumps(my_dict2))
 
-print ("abc\"abc".replace("\"", "\\\""))
+
+if __name__ == '__main__' :
+    unittest.main()
+
+
+
+
+
 
 
