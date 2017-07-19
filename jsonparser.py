@@ -6,6 +6,28 @@ class JsonParser:
     def __init__(self):
         self._data = None
 
+    def __getitem__(self, key):
+        try:
+            if isinstance(self._data, dict):
+                return self._data[key]
+            else:
+                raise MyException
+        except MyException:
+            print("实例内部对象_data不是字典")
+        except TypeError:
+            print("访问不符合规则")
+
+    def __setitem__(self, key, value):
+        try:
+            if isinstance(self._data, dict):
+                self._data[key] = value
+            else:
+                raise MyException
+        except MyException:
+            print("实例内部对象_data不是字典")
+        except TypeError:
+            print("访问不符合规则")
+
     """
     方法：loads(self, s)
     输入参数：字符串s

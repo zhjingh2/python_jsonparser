@@ -57,7 +57,13 @@ class TestJsonParser(unittest.TestCase):
         self.assertEqual(self.jp.dump_list(),
                          ['foo', 123, None, {'tt': 23, 'abc': 123}])
 
+    #测试实例对象利用[]获取或者修改值
+    def testspecial_getter_and_setter(self):
+        self.testload_dict()
+        print(self.jp["a"]) #测试[]获取值
 
+        self.jp["b"] = "new BB" #测试通过[]修改值
+        print(self.jp["b"])
 
 if __name__ == '__main__' :
     unittest.main()
