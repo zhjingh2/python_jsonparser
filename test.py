@@ -4,6 +4,10 @@ from jsonparser import JsonParser
 jp = JsonParser()
 jp.loads('["foo", {"bar":["ba z","呵呵", null,"ab\"c",[true, 333], 1.0, 2], "se" : "ttt"}]')
 
+jp.dump_file("./abcc.txt")
+
+jp.load_file("./abcc.txt")
+
 ob = ['foo',{'bar':('baz',"张竞豪", None, 1.0, 2), "c\"c": 123}]
 ob2 = ['foo','abc',{"a":"c","d":"e","cc":['baz',False,1]}, None,("a","b")]
 print(jp.dumps(ob))
@@ -42,3 +46,4 @@ my_dict2 = {"Self":None,"UID":"6f50b429-5c13-4875-a29a-e4bd8d7b2772",\
 print(jp.dumps(my_dict2))
 
 print ("abc\"abc".replace("\"", "\\\""))
+

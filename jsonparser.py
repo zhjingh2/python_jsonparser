@@ -11,6 +11,8 @@ class JsonParser:
     # json字符串转对象，存储在_data中
     #######################################################
     def loads(self, s):
+        #打印输入的json串
+        #print("loads输入的json串:" + s)
 
         #如果s是None或是空串""
         if s == None or len(s) == 0 :
@@ -100,6 +102,10 @@ class JsonParser:
                 tmp_content = s[:tmp_end_index]
                 if isinstance(tmp_content, str) :
                     tmp_content = tmp_content.strip()
+                    #转义字符处理
+                    tmp_content = tmp_content.replace("\\\"", "\"")
+                    tmp_content = tmp_content.replace("\\\'", "\'")
+
                 if isinstance(s, str) :
                     s = s[tmp_end_index:].strip()    #更新s并去除空格
 
@@ -110,7 +116,8 @@ class JsonParser:
             #logging.warning(stack)
             raise Exception #抛格式异常
         self._data = stack[0]
-        print(self._data)
+        #打印转化后的_data对象
+        #print("loads转化后的_data对象：" + str(self._data))
 
     def find_end_index(self, s) :
         index = 0
@@ -137,7 +144,7 @@ class JsonParser:
     def change_form(self, tmp_content) :
         if isinstance(tmp_content, str) :
             if len(tmp_content) >= 2 and tmp_content.startswith("\"") and tmp_content.endswith("\""):
-                return tmp_content[1:-1].decode('utf-8')
+                return tmp_content[1:-1]
             elif tmp_content == "true" :
                 return True
             elif tmp_content == "false" :
@@ -150,7 +157,7 @@ class JsonParser:
                 return float(tmp_content)
             else :
                 #抛出格式异常
-                logging.warning(tmp_content)
+                #logging.warning(tmp_content)
                 return None
 
     def is_float(self, tmp_content) :
@@ -219,11 +226,35 @@ class JsonParser:
             tmpstr = "{" + tmpstr + "}"
             return tmpstr
 
-    def load_file(self, f):
-        pass
 
+    #######################################################
+    # load_file(self, f)
+    # 读取路径为f的文件中的Json串，返回一个对象
+    #######################################################
+    def load_file(self, f):
+        try :
+            file = open(f, 'r')
+            fr = file.read()
+            self._data = self.loads(fr)
+        except IOError :
+            print("找不到文件")
+        except KeyboardInterrupt :
+            print("你取消了读文件操作")
+        finally :
+            if file:
+                file.close()
+
+
+
+    #######################################################
+    # dump_file(self, f)
+    # 将_data转为Json串存入路径为f的文件
+    #######################################################
     def dump_file(self,f):
-        pass
+        file = open(f, 'w')
+        logging.warning(self.dumps(self._data))
+        file.write(self.dumps(self._data))
+        file.close()
 
     def load_dict(self, d):
         pass
